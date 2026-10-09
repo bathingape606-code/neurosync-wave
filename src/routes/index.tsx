@@ -1,24 +1,31 @@
-import { createFileRoute } from "@tanstack/react-router";
-
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
-export const Route = createFileRoute("/")({
-  component: Index,
-});
-
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
+import { createFileRoute, Link } from '@tanstack/react-router';
+import { useEffect, useRef, useState } from 'react';
+import { Activity, ArrowUpRight, ArrowDown, Brain, Heart, Leaf, ShieldCheck, MapPin, Check, Pause, Play, Stethoscope, FileText } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { ClinicLayout } from '@/components/clinic/layout';
+import { clinic, services, pageHead } from '@/lib/clinic';
+import careVideo from '@/assets/eeg-care.mp4.asset.json';
+import compatibleVideo from '@/assets/eeg-care.webm.asset.json';
+import videoPoster from '@/assets/eeg-poster.jpg.asset.json';
+import clinicInterior from '@/assets/clinic-interior.jpg';
+export const Route = createFileRoute('/')({ head: () => pageHead('Southern Ontario Epilepsy Clinic', 'Specialist epilepsy care, EEG testing and general neurology with Dr. Eduard Bercovici in Toronto. Call 416-620-7632.'), component: Index });
 function Index() {
-  return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
-  );
+ const video = useRef<HTMLVideoElement>(null);
+ const [playing, setPlaying] = useState(true);
+ useEffect(() => { if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { video.current?.pause(); setPlaying(false); } }, []);
+ const toggleVideo = () => { if (!video.current) return; if (playing) { video.current.pause(); setPlaying(false); } else { void video.current.play().then(() => setPlaying(true)).catch(() => setPlaying(false)); } };
+ return <ClinicLayout>
+ <section className="hero"><video ref={video} className="hero-video" poster={videoPoster.url} autoPlay muted loop playsInline onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} onError={() => setPlaying(false)} aria-label="EEG technician gently caring for a patient"><source src={compatibleVideo.url} type="video/webm"/><source src={careVideo.url} type="video/mp4"/></video><Button className="video-toggle" variant="ghost" size="icon" aria-label={playing ? 'Pause background video' : 'Play background video'} onClick={toggleVideo}>{playing ? <Pause size={14}/> : <Play size={14}/>}</Button><div className="container hero-inner">
+ <span className="eyebrow"><span className="status-dot"/> SOUTHERN ONTARIO EPILEPSY CLINIC</span>
+ <h1>Expertise for<br/>your brain.<br/><span>Care for your life.</span></h1>
+ <p className="hero-description">Specialized epilepsy and neurological care.<br/>A clearer understanding. A way forward.<br/>And a team that’s here for you.</p>
+ <div className="hero-actions"><Button variant="clinic" size="spacious" asChild><Link to="/services">Explore our care <ArrowUpRight/></Link></Button><Button variant="soft" size="spacious" className="hero-secondary" asChild><Link to="/eeg-test">EEG testing <Activity/></Link></Button></div>
+ <p className="hero-note"><ShieldCheck size={16}/> Led by Dr. Eduard Bercovici, neurologist & epileptologist</p>
+ <a href="#our-care" className="hero-scroll"><ArrowDown size={15}/> A little more about us</a><a href={clinic.directions} target="_blank" rel="noreferrer" className="hero-location"><MapPin size={16}/><span>Toronto, Ontario <span aria-hidden="true"> · </span> 190 Sherway Drive</span><ArrowUpRight size={14}/></a>
+ </div></section>
+ <div className="trust-strip"><div className="container trust-inner"><div className="trust-item"><Brain className="trust-icon"/><div><strong>Specialist-led care</strong><p>Neurology & epilepsy expertise</p></div></div><div className="trust-item"><Activity className="trust-icon"/><div><strong>In-clinic EEG testing</strong><p>Answers, closer to your care</p></div></div><div className="trust-item"><Heart className="trust-icon"/><div><strong>A person-first approach</strong><p>Your story. Your care. Your next step.</p></div></div></div></div>
+ <section id="our-care" className="section container reveal"><div className="section-heading"><div><span className="eyebrow">FOCUSED EXPERTISE. CONNECTED CARE.</span><h2>The right care, for your next chapter.</h2></div><p>From your first questions to ongoing support, we bring specialized knowledge and a personal approach to your care.</p></div><div className="service-grid">{services.map((s,i) => { const Icon = [Brain, Activity, Stethoscope, Leaf][i]; return <Link to={i === 1 ? '/eeg-test' : '/services'} key={s.number} className="service-card"><div className="service-card-top">{Icon && <Icon/>}<span>{s.number}</span></div><h3>{s.title}</h3><p>{s.text}</p><div className="service-card-bottom">Explore care <ArrowUpRight size={16}/></div></Link>; })}</div></section>
+ <section className="section care-section"><div className="container care-grid reveal"><div><img src={clinicInterior} alt="Illustrative calm, light-filled clinic interior" width={1200} height={912} loading="lazy" className="care-image"/><p className="image-caption">An illustration of our care philosophy, not a photograph of the clinic.</p></div><div className="care-copy"><span className="eyebrow">MORE THAN A DIAGNOSIS</span><h2>Understanding your condition.<br/>Seeing you as a person.</h2><p>Living with a neurological condition comes with questions. At Southern Ontario Epilepsy Clinic, we focus on providing the care and information you need, with testing and specialist follow-up in the same clinic.</p><div className="care-list"><p><Check/>Specialist care with Dr. Eduard Bercovici</p><p><Check/>EEG testing for current and referred patients</p><p><Check/>Ongoing care and second opinion consultations</p></div><Link to="/about" className="text-link">Meet your specialist <ArrowUpRight size={16}/></Link></div></div></section>
+ <section className="section container reveal"><div className="section-heading"><div><span className="eyebrow">A CLEAR PATH FORWARD</span><h2>Your care starts with a conversation.</h2></div><Button variant="soft" asChild><Link to="/resources">Referral information <ArrowUpRight/></Link></Button></div><div className="steps"><div className="step"><span>01 / GET REFERRED</span><h3>Talk to your doctor.</h3><p>Your physician can refer you for specialist care or an EEG using the clinic’s referral forms.</p></div><div className="step"><span>02 / CONNECT WITH US</span><h3>Plan your visit.</h3><p>Contact our team for appointment information and any questions about your upcoming test.</p></div><div className="step"><span>03 / MOVE FORWARD</span><h3>Understand your next steps.</h3><p>For Dr. Bercovici’s patients, testing and follow-up can take place in the same clinic.</p></div></div></section>
+ </ClinicLayout>;
 }
