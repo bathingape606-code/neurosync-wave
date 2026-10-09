@@ -1,0 +1,9 @@
+import { Link } from '@tanstack/react-router';
+import { ArrowUpRight, FileText } from 'lucide-react';
+import { ClinicLayout, PageIntro } from './layout';
+import { Button } from '@/components/ui/button';
+import { clinic, services } from '@/lib/clinic';
+
+export function CareDetail({ title, intro, sections, current }: { title: string; intro: string; sections: { title: string; text: string }[]; current: string }) {
+  return <ClinicLayout><PageIntro eyebrow="SPECIALIST CARE" title={title} text={intro}/><section className="section container content-grid"><div className="content-copy">{sections.map(section => <div key={section.title}><h2>{section.title}</h2><p>{section.text}</p></div>)}<Link to="/about" className="text-link">Meet Dr. Bercovici <ArrowUpRight size={16}/></Link></div><aside className="referral-panel"><FileText size={30}/><h3>Your next step</h3><p>Ask your Ontario physician about a referral. The clinic’s referral page includes forms for epilepsy, general neurology and diet therapy.</p><Button variant="clinic" asChild><a href={clinic.referrals} target="_blank" rel="noreferrer">Referral forms <ArrowUpRight/></a></Button><p className="mt-5">Questions about your visit?</p><Link to="/your-visit" className="text-link">Prepare for your appointment <ArrowUpRight size={16}/></Link></aside></section><section className="section care-section"><div className="container"><div className="section-heading"><div><span className="eyebrow">CONNECTED CARE</span><h2>Explore more at SOEC.</h2></div></div><div className="explore-grid">{services.filter(s => s.to !== current).map(s => <Link key={s.to} to={s.to} className="explore-item"><span>{s.number}</span><h3>{s.title}</h3><ArrowUpRight size={20}/></Link>)}</div></div></section></ClinicLayout>;
+}
