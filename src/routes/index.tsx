@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { ClinicLayout } from '@/components/clinic/layout';
 import { clinic, services, pageHead } from '@/lib/clinic';
 import careVideo from '@/assets/eeg-care.mp4.asset.json';
+import compatibleVideo from '@/assets/eeg-care.webm.asset.json';
 import videoPoster from '@/assets/eeg-poster.jpg.asset.json';
 import clinicInterior from '@/assets/clinic-interior.jpg';
 export const Route = createFileRoute('/')({ head: () => pageHead('Southern Ontario Epilepsy Clinic', 'Specialist epilepsy care, EEG testing and general neurology with Dr. Eduard Bercovici in Toronto. Call 416-620-7632.'), component: Index });
@@ -14,7 +15,7 @@ function Index() {
  useEffect(() => { if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { video.current?.pause(); setPlaying(false); } }, []);
  const toggleVideo = () => { if (!video.current) return; if (playing) { video.current.pause(); setPlaying(false); } else { void video.current.play().then(() => setPlaying(true)).catch(() => setPlaying(false)); } };
  return <ClinicLayout>
- <section className="hero"><video ref={video} className="hero-video" src={careVideo.url} poster={videoPoster.url} autoPlay muted loop playsInline onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} onError={() => setPlaying(false)} aria-label="EEG technician gently caring for a patient"/><Button className="video-toggle" variant="ghost" size="icon" aria-label={playing ? 'Pause background video' : 'Play background video'} onClick={toggleVideo}>{playing ? <Pause size={14}/> : <Play size={14}/>}</Button><div className="container hero-inner">
+ <section className="hero"><video ref={video} className="hero-video" poster={videoPoster.url} autoPlay muted loop playsInline onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} onError={() => setPlaying(false)} aria-label="EEG technician gently caring for a patient"><source src={compatibleVideo.url} type="video/webm"/><source src={careVideo.url} type="video/mp4"/></video><Button className="video-toggle" variant="ghost" size="icon" aria-label={playing ? 'Pause background video' : 'Play background video'} onClick={toggleVideo}>{playing ? <Pause size={14}/> : <Play size={14}/>}</Button><div className="container hero-inner">
  <span className="eyebrow"><span className="status-dot"/> SOUTHERN ONTARIO EPILEPSY CLINIC</span>
  <h1>Expertise for<br/>your brain.<br/><span>Care for your life.</span></h1>
  <p className="hero-description">Specialized epilepsy and neurological care.<br/>A clearer understanding. A way forward.<br/>And a team that’s here for you.</p>
