@@ -8,3 +8,8 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+## Application architecture
+- Keep clinic facts and outbound referral links in a shared browser-safe data module so all pages use the same verified details.
+- Use a shared clinic layout and separate TanStack content routes so navigation opens real pages.
+- Serve generated background video through an asset pointer rather than committing binary media.
