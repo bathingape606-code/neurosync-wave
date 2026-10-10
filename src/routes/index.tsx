@@ -16,7 +16,7 @@ function Index() {
   return <ClinicLayout>
   <section className="hero"><video ref={ref} className="hero-video" autoPlay muted loop playsInline preload="auto" poster={poster.url} aria-hidden="true"><source src={videoWebm.url} type="video/webm"/><source src={videoMp4.url} type="video/mp4"/></video><button type="button" className="video-toggle" onClick={toggle} aria-label={playing ? 'Pause background video' : 'Play background video'}>{playing ? <Pause size={16}/> : <Play size={16}/>}</button><div className="container hero-inner">
  <span className="eyebrow"><span className="status-dot"/> SOUTHERN ONTARIO EPILEPSY CLINIC</span>
- <h1>Expertise for<br/>your brain.<br/><span>Care for your life.</span></h1>
+ <h1 className="hero-title"><span className="hero-title-line">Expertise for</span><span className="hero-title-line">your brain.</span><span className="hero-title-line hero-title-accent">Care for your life.</span></h1>
  <p className="hero-description">Specialized epilepsy and neurological care.<br/>A clearer understanding. A way forward.<br/>And a team that’s here for you.</p>
  <div className="hero-actions"><Button variant="clinic" size="spacious" asChild><Link to="/services">Explore our care <ArrowUpRight/></Link></Button><Button variant="soft" size="spacious" className="hero-secondary" asChild><Link to="/eeg-test">EEG testing <Activity/></Link></Button></div>
  <p className="hero-note"><ShieldCheck size={16}/> Led by Dr. Eduard Bercovici, neurologist & epileptologist</p>
