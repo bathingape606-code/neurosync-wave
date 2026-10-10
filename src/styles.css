@@ -104,3 +104,14 @@ html { scroll-behavior:smooth; scroll-padding-top:100px; }
 @media(max-width:1200px) { .brand-caption { display:none; } .desktop-nav { gap:20px; } }
 @media(max-width:1000px) { .desktop-nav { display:none; } .mobile-menu-button { display:inline-flex; } .header-contact { margin-left:auto; } .mobile-nav { background:var(--background); padding:15px 25px 25px; border-bottom:1px solid var(--border); box-shadow:var(--shadow); } .mobile-nav a { display:flex; justify-content:space-between; padding:14px 0; } }
 @media(max-width:540px) { .brand-logo { width:108px; height:36px; } .explore-grid { grid-template-columns:1fr; gap:0; } .explore-item h3 { font-size:18px; } }
+.video-toggle { display:grid; place-items:center; width:42px; height:42px; border:1px solid var(--border); color:var(--primary); backdrop-filter:blur(10px); cursor:pointer; transition:transform .25s; }
+.video-toggle:hover { transform:scale(1.08); }
+.hero-video { animation:hero-zoom 18s ease-in-out infinite alternate; }
+@keyframes hero-zoom { from { transform:scale(1); } to { transform:scale(1.07); } }
+.service-card { position:relative; overflow:hidden; }
+.service-card:before { content:''; position:absolute; inset:auto 0 0 0; height:3px; background:var(--primary); transform:scaleX(0); transform-origin:left; transition:transform .45s; }
+.service-card:hover:before { transform:scaleX(1); }
+.service-card-top svg { transition:transform .45s; } .service-card:hover .service-card-top svg { transform:rotate(-8deg) scale(1.12); }
+.care-image { transition:transform .8s; } .care-image:hover { transform:scale(1.02); }
+.status-dot { animation:pulse-dot 2.2s infinite; } @keyframes pulse-dot { 50% { box-shadow:0 0 0 8px color-mix(in oklch,var(--primary) 0%,transparent); } }
+.site-header { backdrop-filter:blur(14px); background:color-mix(in oklch,var(--background) 88%,transparent); }

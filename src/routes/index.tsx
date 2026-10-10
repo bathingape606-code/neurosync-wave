@@ -1,14 +1,20 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
-import { Activity, ArrowUpRight, ArrowDown, Brain, Heart, Leaf, ShieldCheck, MapPin, Check, Stethoscope } from 'lucide-react';
+import { useRef, useState } from 'react';
+import { Activity, ArrowUpRight, ArrowDown, Brain, Heart, Leaf, ShieldCheck, MapPin, Check, Stethoscope, Pause, Play } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ClinicLayout } from '@/components/clinic/layout';
 import { clinic, services, pageHead } from '@/lib/clinic';
-import consultation from '@/assets/clinic-consultation.jpg.asset.json';
 import doctorPhoto from '@/assets/clinic-doctor.jpg.asset.json';
+import videoWebm from '@/assets/eeg-care.webm.asset.json';
+import videoMp4 from '@/assets/eeg-care.mp4.asset.json';
+import poster from '@/assets/eeg-poster.jpg.asset.json';
 export const Route = createFileRoute('/')({ head: () => pageHead('Southern Ontario Epilepsy Clinic', 'Specialist epilepsy care, EEG testing and general neurology with Dr. Eduard Bercovici in Toronto. Call 416-620-7632.'), component: Index });
 function Index() {
- return <ClinicLayout>
- <section className="hero"><img className="hero-video" src={consultation.url} alt="A doctor speaking with patients" width={2600} height={1393}/><div className="container hero-inner">
+  const ref = useRef<HTMLVideoElement>(null);
+  const [playing, setPlaying] = useState(true);
+  const toggle = () => { const v = ref.current; if (!v) return; if (v.paused) { void v.play(); setPlaying(true); } else { v.pause(); setPlaying(false); } };
+  return <ClinicLayout>
+  <section className="hero"><video ref={ref} className="hero-video" autoPlay muted loop playsInline preload="auto" poster={poster.url} aria-hidden="true"><source src={videoWebm.url} type="video/webm"/><source src={videoMp4.url} type="video/mp4"/></video><button type="button" className="video-toggle" onClick={toggle} aria-label={playing ? 'Pause background video' : 'Play background video'}>{playing ? <Pause size={16}/> : <Play size={16}/>}</button><div className="container hero-inner">
  <span className="eyebrow"><span className="status-dot"/> SOUTHERN ONTARIO EPILEPSY CLINIC</span>
  <h1>Expertise for<br/>your brain.<br/><span>Care for your life.</span></h1>
  <p className="hero-description">Specialized epilepsy and neurological care.<br/>A clearer understanding. A way forward.<br/>And a team that’s here for you.</p>
