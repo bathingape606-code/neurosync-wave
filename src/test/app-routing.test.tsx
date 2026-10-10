@@ -15,3 +15,13 @@ describe("App routing", () => {
     expect(matches.at(-1)?.routeId).not.toBe(rootRouteId);
   });
 });
+
+// Every care tile must open its own information page.
+describe("Clinic exploration", () => {
+  for (const path of ["/epilepsy-care", "/neurology", "/diet-therapy", "/your-visit"]) {
+    it(`opens ${path}`, () => {
+      const router = createRouter({ routeTree, context: { queryClient: new QueryClient() } });
+      expect(router.matchRoutes(path).at(-1)?.routeId).toBe(path);
+    });
+  }
+});
