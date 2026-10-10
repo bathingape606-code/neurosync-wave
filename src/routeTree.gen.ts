@@ -15,7 +15,10 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as DietTherapyRouteImport } from './routes/diet-therapy'
 import { Route as EegTestRouteImport } from './routes/eeg-test'
 import { Route as EpilepsyCareRouteImport } from './routes/epilepsy-care'
+import { Route as FaqRouteImport } from './routes/faq'
 import { Route as NeurologyRouteImport } from './routes/neurology'
+import { Route as NewPatientsRouteImport } from './routes/new-patients'
+import { Route as ReferralsRouteImport } from './routes/referrals'
 import { Route as ResourcesRouteImport } from './routes/resources'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as YourVisitRouteImport } from './routes/your-visit'
@@ -50,9 +53,24 @@ const EpilepsyCareRoute = EpilepsyCareRouteImport.update({
   path: '/epilepsy-care',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FaqRoute = FaqRouteImport.update({
+  id: '/faq',
+  path: '/faq',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const NeurologyRoute = NeurologyRouteImport.update({
   id: '/neurology',
   path: '/neurology',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NewPatientsRoute = NewPatientsRouteImport.update({
+  id: '/new-patients',
+  path: '/new-patients',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReferralsRoute = ReferralsRouteImport.update({
+  id: '/referrals',
+  path: '/referrals',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ResourcesRoute = ResourcesRouteImport.update({
@@ -78,7 +96,10 @@ export interface FileRoutesByFullPath {
   '/diet-therapy': typeof DietTherapyRoute
   '/eeg-test': typeof EegTestRoute
   '/epilepsy-care': typeof EpilepsyCareRoute
+  '/faq': typeof FaqRoute
   '/neurology': typeof NeurologyRoute
+  '/new-patients': typeof NewPatientsRoute
+  '/referrals': typeof ReferralsRoute
   '/resources': typeof ResourcesRoute
   '/services': typeof ServicesRoute
   '/your-visit': typeof YourVisitRoute
@@ -90,7 +111,10 @@ export interface FileRoutesByTo {
   '/diet-therapy': typeof DietTherapyRoute
   '/eeg-test': typeof EegTestRoute
   '/epilepsy-care': typeof EpilepsyCareRoute
+  '/faq': typeof FaqRoute
   '/neurology': typeof NeurologyRoute
+  '/new-patients': typeof NewPatientsRoute
+  '/referrals': typeof ReferralsRoute
   '/resources': typeof ResourcesRoute
   '/services': typeof ServicesRoute
   '/your-visit': typeof YourVisitRoute
@@ -103,7 +127,10 @@ export interface FileRoutesById {
   '/diet-therapy': typeof DietTherapyRoute
   '/eeg-test': typeof EegTestRoute
   '/epilepsy-care': typeof EpilepsyCareRoute
+  '/faq': typeof FaqRoute
   '/neurology': typeof NeurologyRoute
+  '/new-patients': typeof NewPatientsRoute
+  '/referrals': typeof ReferralsRoute
   '/resources': typeof ResourcesRoute
   '/services': typeof ServicesRoute
   '/your-visit': typeof YourVisitRoute
@@ -117,7 +144,10 @@ export interface FileRouteTypes {
     | '/diet-therapy'
     | '/eeg-test'
     | '/epilepsy-care'
+    | '/faq'
     | '/neurology'
+    | '/new-patients'
+    | '/referrals'
     | '/resources'
     | '/services'
     | '/your-visit'
@@ -129,7 +159,10 @@ export interface FileRouteTypes {
     | '/diet-therapy'
     | '/eeg-test'
     | '/epilepsy-care'
+    | '/faq'
     | '/neurology'
+    | '/new-patients'
+    | '/referrals'
     | '/resources'
     | '/services'
     | '/your-visit'
@@ -141,7 +174,10 @@ export interface FileRouteTypes {
     | '/diet-therapy'
     | '/eeg-test'
     | '/epilepsy-care'
+    | '/faq'
     | '/neurology'
+    | '/new-patients'
+    | '/referrals'
     | '/resources'
     | '/services'
     | '/your-visit'
@@ -154,7 +190,10 @@ export interface RootRouteChildren {
   DietTherapyRoute: typeof DietTherapyRoute
   EegTestRoute: typeof EegTestRoute
   EpilepsyCareRoute: typeof EpilepsyCareRoute
+  FaqRoute: typeof FaqRoute
   NeurologyRoute: typeof NeurologyRoute
+  NewPatientsRoute: typeof NewPatientsRoute
+  ReferralsRoute: typeof ReferralsRoute
   ResourcesRoute: typeof ResourcesRoute
   ServicesRoute: typeof ServicesRoute
   YourVisitRoute: typeof YourVisitRoute
@@ -204,11 +243,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EpilepsyCareRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/faq': {
+      id: '/faq'
+      path: '/faq'
+      fullPath: '/faq'
+      preLoaderRoute: typeof FaqRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/neurology': {
       id: '/neurology'
       path: '/neurology'
       fullPath: '/neurology'
       preLoaderRoute: typeof NeurologyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/new-patients': {
+      id: '/new-patients'
+      path: '/new-patients'
+      fullPath: '/new-patients'
+      preLoaderRoute: typeof NewPatientsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/referrals': {
+      id: '/referrals'
+      path: '/referrals'
+      fullPath: '/referrals'
+      preLoaderRoute: typeof ReferralsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/resources': {
@@ -242,7 +302,10 @@ const rootRouteChildren: RootRouteChildren = {
   DietTherapyRoute: DietTherapyRoute,
   EegTestRoute: EegTestRoute,
   EpilepsyCareRoute: EpilepsyCareRoute,
+  FaqRoute: FaqRoute,
   NeurologyRoute: NeurologyRoute,
+  NewPatientsRoute: NewPatientsRoute,
+  ReferralsRoute: ReferralsRoute,
   ResourcesRoute: ResourcesRoute,
   ServicesRoute: ServicesRoute,
   YourVisitRoute: YourVisitRoute,

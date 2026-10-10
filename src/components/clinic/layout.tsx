@@ -4,7 +4,7 @@ import { ArrowUpRight, Menu, X, Phone, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import logo from '@/assets/soec-logo.png';
 import { clinic, services } from '@/lib/clinic';
-const navigation = [{ to: '/', label: 'Overview' }, { to: '/services', label: 'Our care' }, { to: '/eeg-test', label: 'EEG testing' }, { to: '/about', label: 'Our specialist' }, { to: '/resources', label: 'Resources' }, { to: '/your-visit', label: 'Your visit' }] as const;
+const navigation = [{ to: '/', label: 'Overview' }, { to: '/services', label: 'Our care' }, { to: '/eeg-test', label: 'EEG testing' }, { to: '/new-patients', label: 'New patients' }, { to: '/referrals', label: 'Referrals' }, { to: '/faq', label: 'FAQ' }, { to: '/about', label: 'Our specialist' }, { to: '/resources', label: 'Resources' }, { to: '/your-visit', label: 'Your visit' }] as const;
 export function ClinicLayout({ children }: { children: ReactNode }) {
   const [open, setOpen] = useState(false);
   const pathname = useRouterState({ select: s => s.location.pathname });
